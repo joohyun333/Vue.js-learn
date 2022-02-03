@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <!-- <router-link to="/login">Login</router-link> ===> <a href="/login"></a>(최종적으로 앵커 tag로 변환) -->
+            <router-link to="/login">Login</router-link>
+            <router-link to="/main">Main</router-link>
+        </div>
+        <router-view></router-view> <!-- LoginComponent, MainComponent -->
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 라우터 추가 -->
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script>
+
+        var LoginComponent={
+            template: '<div>login</div>'
+        }
+
+        var MainComponent={
+            template: '<div>main</div>'
+        }
+
+        // 1. 라우터 인스턴스 생성
+        var router = new VueRouter({
+            // 라우터 옵션
+            // routes : 라우팅 할 URL과 컴포넌트 값 지정
+            // mode : URL의 해쉬 값 제거 속성
+                //  history : #가 없어지면서 깔끔한 URL로 뿌려줌
+            // mode : 'history',
+
+            // 페이지의 라우팅 정보(어떤 url로 이동시 어떤 페이지가 나올지)
+            routes:[
+                {   
+                    // 페이지의 url
+                    path: '/login',
+                    // 해당 url에서 표시될 component(components가 아님, 페이지마다 컴포넌트는 하나)
+                    // new Vue 같이 인스턴스나 컴포넌트에 컴포넌트를 등록할때는 대부분 여러 컴포넌트를 등록(components)
+                    component: LoginComponent
+                },
+                {
+                    path :'/main',
+                    component: MainComponent
+
+                }
+            ]
+        });
+
+        // 2. 인스턴스에 라우터 인스턴스를 등록
+        new Vue({
+            el: '#app',
+            router: router
+        });
+    </script>
+</body>
+
+</html>
