@@ -1,6 +1,7 @@
 <template>
   <div>
-    <ul>
+    <!-- name은 css 클래스(Transition class)와 관련이 있음 -->
+    <transition-group name="list" tag="ul">
       <li
         v-for="(todoItem, index) in propsdata"
         v-bind:key="todoItem.item"
@@ -18,7 +19,7 @@
           <i class="fas fa-trash"></i>
         </span>
       </li>
-    </ul>
+    </transition-group>
   </div>
 </template>
 
@@ -27,18 +28,10 @@ export default {
   props: ['propsdata'],
   methods: {
     removeTodo: function (todoItem, index) {
-      localStorage.removeItem(todoItem);
-      // array.splice(배열의 변경을 시작할 인덱스, 배열에서 제거할 요소의 수, 배열에 추가할 요소(없는 경우 요소 제거만))
-      this.todoItems.splice(index, 1);
+      this.$emit('removeItem', todoItem, index);
     },
     toggleComplete: function (todoItem, index) {
-      console.log(index);
-      todoItem.completed = !todoItem.completed;
-      //로컬 스토리지의 데이터를 갱신(update문이 localStorage에 없으므로 없앴다가 다시 업로드해야됨.)
-      // completed:true -> completed:false)
-      // 특정 할일 체크, 미체크 html, localStrage에 업로드
-      localStorage.removeItem(todoItem.item);
-      localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+      this.$emit('toggleItem', todoItem, index);
     },
   },
 };
@@ -76,5 +69,15 @@ li {
 .textCompleted {
   text-decoration: line-through;
   color: #b3adad;
+}
+
+/* 리스트 아이템 트렌지션 효과 */
+.list-enter-active,
+.list-leave-active {
+  transition: all 1s;
+}
+.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(30px);
 }
 </style>

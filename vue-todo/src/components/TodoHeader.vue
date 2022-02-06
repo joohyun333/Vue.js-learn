@@ -5,15 +5,13 @@
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
-// scoped > 컴포넌트안에서만 유효한 속성이 됨. 
+// scoped > 컴포넌트안에서만 유효한 속성이 됨.
 <style scoped>
-h1{
-  color: #2F3B52;
+h1 {
+  color: #2f3b52;
   font-weight: 900;
   margin: 2.5rem 0 1.5rem;
 }
