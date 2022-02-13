@@ -3,7 +3,7 @@
     <!-- name은 css 클래스(Transition class)와 관련이 있음 -->
     <transition-group name="list" tag="ul">
       <li
-        v-for="(todoItem, index) in propsdata"
+        v-for="(todoItem, index) in this.$store.state.todoItems"
         v-bind:key="todoItem.item"
         class="shadow"
       >
@@ -25,13 +25,15 @@
 
 <script>
 export default {
-  props: ['propsdata'],
+  // props: ['propsdata'], v-for="(todoItem, index) in this.$store.state.todoItems로 변경되면서 삭제
   methods: {
-    removeTodo: function (todoItem, index) {
-      this.$emit('removeItem', todoItem, index);
+    removeTodo(todoItem, index) {
+      // this.$emit('removeItem', todoItem, index);
+      this.$store.commit('removeOneItem', { todoItem, index });
     },
-    toggleComplete: function (todoItem, index) {
-      this.$emit('toggleItem', todoItem, index);
+    toggleComplete(todoItem, index) {
+      // this.$emit('toggleItem', todoItem, index);
+      this.$store.commit('toggleOneItem', { todoItem, index });
     },
   },
 };

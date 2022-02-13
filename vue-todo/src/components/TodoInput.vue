@@ -25,29 +25,30 @@
 import Model from './common/Model.vue';
 
 export default {
-  data: function () {
+  data() {
     return {
       newTodoItem: '',
       showModal: false,
     };
   },
   methods: {
-    addTodo: function () {
+    addTodo() {
       //값이 있을때만
       if (this.newTodoItem !== '') {
         // emit event(이벤트 이름, 인자1, 인자2....)
-        this.$emit('addTodoItem', this.newTodoItem);
+        // this.$emit('addTodoItem', this.newTodoItem);
+        this.$store.commit('addOneItem', this.newTodoItem);
         this.clearInput();
       } else {
         this.showModal = !this.showModal;
       }
     },
-    clearInput: function () {
+    clearInput() {
       this.newTodoItem = '';
     },
   },
   components: {
-    Model: Model,
+    Model,
   },
 };
 </script>
