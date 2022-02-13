@@ -24,6 +24,11 @@ export const store = new Vuex.Store({
     headerText: 'TODO it!',
     todoItems: storage.fetch(),
   },
+  getters: {
+    storedTodoItems(state) {
+      return state.todoItems;
+    },
+  },
   mutations: {
     addOneItem(state, todoItem) {
       // 체크됐는지 진위값, text값

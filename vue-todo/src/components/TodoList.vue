@@ -3,7 +3,7 @@
     <!-- name은 css 클래스(Transition class)와 관련이 있음 -->
     <transition-group name="list" tag="ul">
       <li
-        v-for="(todoItem, index) in this.$store.state.todoItems"
+        v-for="(todoItem, index) in this.storedTodoItems"
         v-bind:key="todoItem.item"
         class="shadow"
       >
@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   // props: ['propsdata'], v-for="(todoItem, index) in this.$store.state.todoItems로 변경되면서 삭제
   methods: {
@@ -35,6 +37,19 @@ export default {
       // this.$emit('toggleItem', todoItem, index);
       this.$store.commit('toggleOneItem', { todoItem, index });
     },
+  },
+  computed: {
+    // todoItems() {
+    //   return this.$store.getters.storedTodoItems;
+    // },
+
+    // 배열로 하는 경우
+    ...mapGetters(['storedTodoItems']),
+
+    // 객체로 주입하는 경우
+    // ...mapGetters({
+    //   todoItems: 'storedTodoItems',
+    // }),
   },
 };
 </script>
