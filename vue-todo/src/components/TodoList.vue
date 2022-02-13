@@ -10,12 +10,12 @@
         <i
           class="fas fa-check checkBtn"
           v-bind:class="{ checkBtnCompleted: todoItem.completed }"
-          v-on:click="toggleComplete(todoItem, index)"
+          v-on:click="toggleComplete({ todoItem, index })"
         ></i>
         <span v-bind:class="{ textCompleted: todoItem.completed }">
           {{ todoItem.item }}
         </span>
-        <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
+        <span class="removeBtn" v-on:click="removeTodo({ todoItem, index })">
           <i class="fas fa-trash"></i>
         </span>
       </li>
@@ -24,19 +24,26 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   // props: ['propsdata'], v-for="(todoItem, index) in this.$store.state.todoItems로 변경되면서 삭제
   methods: {
-    removeTodo(todoItem, index) {
-      // this.$emit('removeItem', todoItem, index);
-      this.$store.commit('removeOneItem', { todoItem, index });
-    },
-    toggleComplete(todoItem, index) {
-      // this.$emit('toggleItem', todoItem, index);
-      this.$store.commit('toggleOneItem', { todoItem, index });
-    },
+    // removeTodo(todoItem, index) {
+    // this.$emit('removeItem', todoItem, index);
+    // this.$store.commit('removeOneItem', { todoItem, index });
+    // },
+    // toggleComplete(todoItem, index) {
+    //   // this.$emit('toggleItem', todoItem, index);
+    //   this.$store.commit('toggleOneItem', { todoItem, index });
+    // },
+    ...mapMutations({
+      // map helper 함수는 함묵적으로 인자를 넘김
+      // 실질적으로는 removeOneItem(todoItem, index) -> 단 인자 갯수는 맞춰야됨.
+      // removeTodo(todoItem, index) => removeTodo({ todoItem, index })
+      removeTodo: 'removeOneItem',
+      toggleComplete: 'toggleOneItem',
+    }),
   },
   computed: {
     // todoItems() {
