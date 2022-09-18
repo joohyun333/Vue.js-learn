@@ -6,9 +6,14 @@ import App from '../App.vue'
 import NewsView from '../views/NewsView'
 import JobsView from '../views/JobsView'
 import AskView from '../views/AskView'
+import UserView from "../views/UserView";
 
 const routes =
     [
+        {
+            path: "/",
+            redirect: 'news',
+        },
         {
             path: '/news',
             component: NewsView,
@@ -21,6 +26,10 @@ const routes =
             path: '/ask',
             component: AskView,
         },
+        {
+            path: '/user/:id',
+            component: UserView
+        }
     ];
 
 export const router = createRouter({
